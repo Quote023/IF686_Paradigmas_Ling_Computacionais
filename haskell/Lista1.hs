@@ -74,8 +74,15 @@ logMes [] _ = 0
 logMes _ [] = 0
 logMes m s =
   let ps = parse s
-      somaMes acc (_, m', _, v) = (if m == m' then v else 0) + acc
-   in foldl somaMes 0.0 ps
+   in foldl (+) 0.0 [v | (_, m', _, v) <- ps, m' == m]
+
+logMes'' :: String -> String -> Double
+logMes'' [] _ = 0
+logMes'' _ [] = 0
+logMes'' m s =
+  let ps = parse s
+      _somaMes acc (_, m', _, v) = (if m == m' then v else 0) + acc
+   in foldl _somaMes 0.0 ps
 
 logMes' :: String -> String -> Double
 logMes' [] _ = 0
