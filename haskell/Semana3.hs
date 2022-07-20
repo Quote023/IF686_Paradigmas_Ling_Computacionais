@@ -27,10 +27,8 @@ digits' [] = ""
 digits' (c : cs) = (if ehDigito c then [c] else []) ++ digits cs
 
 sumPairs :: [Int] -> [Int] -> [Int]
-sumPairs [] [] = []
-sumPairs as [] = as
-sumPairs [] bs = bs
 sumPairs (a : as) (b : bs) = (a + b) : sumPairs as bs
+sumPairs _ _ = []
 
 pegarEl :: [Int] -> Int -> Int
 pegarEl ar n = case pegarCaudaEm ar n of
