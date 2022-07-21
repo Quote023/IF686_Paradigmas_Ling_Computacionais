@@ -1,3 +1,7 @@
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+
+{-# HLINT ignore "Use foldr" #-}
+{-# HLINT ignore "Use map" #-}
 module Semana4 where
 
 -- Tuplas
@@ -119,3 +123,34 @@ devolver db p l = [(p', l') | (p', l') <- db, (p /= p') && (l' /= l)]
 
 devolver' :: BancoBiblioteca -> Pessoa -> Livro -> BancoBiblioteca
 devolver' db p l = db |> filtrar (\(p', l') -> (p /= p') && (l' /= l))
+
+-- Polimorfismo
+
+qslc :: Ord a => [a] -> [a]
+qslc [] = []
+qslc (x : xs) = qslc [y | y <- xs, y < x] ++ [x] ++ qslc [y | y <- xs, y >= x]
+
+unirListas :: [[t]] -> [t]
+unirListas [] = []
+unirListas (a : as) = a ++ unirListas as
+
+contar :: Eq a => [a] -> a -> Int
+contar xs c = length [x | x <- xs, x == c]
+
+removerElem :: Eq t => [t] -> t -> [t]
+removerElem [] _ = []
+removerElem (x : xs) c
+  | x == c = xs
+  | otherwise = x : removerElem xs c
+
+removerDup :: Eq a => [a] -> [a]
+removerDup [] = []
+removerDup (x : xs) = x : xs |> ($.) removerElem x |> removerDup
+
+agrupar :: Eq t => [[t]] -> [(t, Int)]
+agrupar [] = []
+agrupar xs = flat |> removerDup |> contarRep
+  where
+    flat = xs |> unirListas
+    contarRep [] = []
+    contarRep (y : ys) = (y, contar flat y) : contarRep ys
