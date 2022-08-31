@@ -1,6 +1,3 @@
-# Ignorar tudo
-*
 
 # Exceto arquivos haskell (E o gitignore)
 !.gitignore
-!*.hs

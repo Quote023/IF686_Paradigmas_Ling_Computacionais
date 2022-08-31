@@ -1,7 +1,12 @@
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+
+{-# HLINT ignore "Use <&>" #-}
+{-# HLINT ignore "Use when" #-}
 module Main where
 
-import Semana6 (Shape (Circle), area)
+import Data.Char (ord)
+import Semana7_2 (Set (..))
+import Semana8
 
 main :: IO ()
-main = do
-  print (area (Circle 2))
+main = fileToSum
