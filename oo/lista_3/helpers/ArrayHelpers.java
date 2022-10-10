@@ -21,6 +21,22 @@ public class ArrayHelpers {
       return arr[index];
   }
 
+  public static <T> void addAtEnd(T[] arr, T element) {
+    addAtEnd(arr, element, false);
+  }
+
+  public static <T> void addAtEnd(T[] arr, T element, boolean override) {
+    for (int i = 0; i < arr.length; i++)
+      if (arr[i] == null) {
+        arr[i] = element;
+        return;
+      }
+    if (override)
+      arr[arr.length - 1] = element;
+    else
+      throw new RuntimeException("Array Cheio!");
+  }
+
   public static <T> T[] cut(T[] arr, int size) {
     if (arr.length <= size)
       return arr;
