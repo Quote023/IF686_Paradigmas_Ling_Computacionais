@@ -10,7 +10,7 @@ public class ArrayHelpers {
   }
 
   public static <T> int indexOf(T[] arr, T value) {
-    return indexOf(arr, (x) -> x.equals(value));
+    return indexOf(arr, (x) -> value.equals(x));
   }
 
   public static <T> T find(T[] arr, CompLambda1<T> condition) {
@@ -37,25 +37,51 @@ public class ArrayHelpers {
       throw new RuntimeException("Array Cheio!");
   }
 
-  public static <T> T[] cut(T[] arr, int size) {
-    if (arr.length <= size)
+  public static <T> T[] fitIn(T[] arr, T[] target) {
+    if (arr.length <= target.length)
       return arr;
-    final T[] newArr = (T[]) new Object[size];
-    for (int i = 0; i < newArr.length; i++)
-      newArr[i] = arr[i];
-    return newArr;
+    for (int i = 0; i < target.length; i++)
+      target[i] = arr[i];
+    return target;
   }
 
-  public static <T> T[] pad(T[] arr, int size) {
-    if (arr.length >= size)
+  public static <T> T[] padTo(T[] arr, T[] target) {
+    if (arr.length >= target.length)
       return arr;
-    final T[] newArr = (T[]) new Object[size];
     for (int i = 0; i < arr.length; i++)
-      newArr[i] = arr[i];
-    return newArr;
+      target[i] = arr[i];
+    return target;
   }
 
-  public static <T> T[] resize(T[] arr, int size) {
-    return pad(cut(arr, size), size);
+  public static <T> void remove(T[] arr, T elem) {
+    int index = indexOf(arr, elem);
+    if (index == -1)
+      return;
+    for (int i = index + 1; i < arr.length; i++) {
+      arr[i - 1] = arr[i];
+    }
+    arr[arr.length - 1] = null;
   }
+
+  public static <T> T[] resize(T[] arr, T[] newArr) {
+    return padTo(fitIn(arr, newArr), newArr);
+  }
+
+  public static <T> T[] sort(T orig[], CompLambda2<T, T> shouldSwap) {
+    var arr = orig.clone();
+    int pos;
+    for (int i = 0; i < arr.length; i++) {
+      pos = i;
+      for (int j = i + 1; j < arr.length; j++)
+        if (arr[j] != null && shouldSwap.compare(arr[j], arr[pos]))
+          pos = j;
+
+      T temp = arr[pos];
+      arr[pos] = arr[i];
+      arr[i] = temp;
+    }
+
+    return arr;
+  }
+
 }

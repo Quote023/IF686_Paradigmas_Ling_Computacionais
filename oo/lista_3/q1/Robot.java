@@ -10,7 +10,7 @@ public class Robot {
   public Robot(String nome) {
     this.nome = nome;
     this.camisa = -1;
-    this.posicao = Dupla.com(-1, -1);
+    this.posicao = new Dupla<>(-1, -1);
   }
 
   public int getX() {

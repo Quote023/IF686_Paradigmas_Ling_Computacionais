@@ -4,11 +4,9 @@ public class Dupla<T1, T2> {
   private T1 fst;
   private T2 snd;
 
-  public static <T1, T2> Dupla<T1, T2> com(T1 fst, T2 snd) {
-    Dupla<T1, T2> dupla = new Dupla<>();
-    dupla.fst = fst;
-    dupla.snd = snd;
-    return dupla;
+  public Dupla(T1 fst, T2 snd) {
+    this.fst = fst;
+    this.snd = snd;
   }
 
   public void setFst(T1 fst) {

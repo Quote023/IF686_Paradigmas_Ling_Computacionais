@@ -13,8 +13,9 @@ public class Team {
   }
 
   public Team(Robot[] timeTitular, Robot[] timeReserva) {
-    this.timeTitular = ArrayHelpers.resize(timeTitular, MAX_JOGADORES);
-    this.timeReserva = ArrayHelpers.resize(timeReserva, MAX_JOGADORES);
+    // Mantem os times sempre com o mesmo tamanho.
+    this.timeTitular = ArrayHelpers.resize(timeTitular, new Robot[MAX_JOGADORES]);
+    this.timeReserva = ArrayHelpers.resize(timeReserva, new Robot[MAX_JOGADORES]);
   }
 
   public void inserirTitular(Robot robot) {
