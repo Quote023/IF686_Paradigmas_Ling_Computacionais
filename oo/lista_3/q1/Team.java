@@ -30,6 +30,8 @@ public class Team {
     int indexT = ArrayHelpers.indexOf(timeTitular, titular);
     int indexR = ArrayHelpers.indexOf(timeReserva, reserva);
 
+    reserva.setPosicao(titular.getX(), titular.getY());
+    titular.setPosicao(-1, -1);
     timeTitular[indexT] = reserva;
     timeReserva[indexR] = titular;
   }
